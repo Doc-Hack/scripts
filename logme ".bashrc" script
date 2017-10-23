@@ -1,0 +1,7 @@
+#This script is taken from user cdf123 from the hackthebox forums, saving here to transfer to my own machine later
+logme () {
+        export SCRIPTFILE="$(date +%s)-${$}"
+        echo "Starting tty logging to ~/scripts/${SCRIPTFILE}..."
+        script -c /bin/bash -q "~/scripts/${SCRIPTFILE}"
+}
+scriptfile () { echo "${SCRIPTFILE}"; }
