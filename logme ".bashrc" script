@@ -5,3 +5,17 @@ logme () {
         script -c /bin/bash -q "~/scripts/${SCRIPTFILE}"
 }
 scriptfile () { echo "${SCRIPTFILE}"; }
+
+#This script is self written using cdf123 example and other examples of initial scanning and enumeration, $1 is the IP of target
+initpenscan () {
+        export SCRIPTFILE="$(date +%s)-${$}"
+        echo "Beginning nmap scan: 1 of 2"
+        script -c 'nmap -sC -sV -oA $1' -q "~/scripts/${SCRIPTFILE}"
+        echo "nmap scan: 2 of 2"
+        script -c 'nmap -sU -p1-1000 $1' -q -a "~/scripts/${SCRIPTFILE}"
+        echo "Beginning Dirb"
+        script -c 'dirb $1' -q -a "~/scripts/${SCRIPTFILE}"
+        echo "Beginning Nikto"
+        script -c 'nikto -h $1' -q -a "~/scripts/${SCRIPTFILE}"
+        echo "Initial scans complete. File save at: "
+        echo "~/scripts/${SCRIPTFILE}"
